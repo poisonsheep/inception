@@ -33,11 +33,8 @@ public class Inception {
     public Inception()
     {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        // Register the setup method for modloading
         bus.addListener(this::setup);
-        // Register the enqueueIMC method for modloading
         bus.addListener(this::enqueueIMC);
-        // Register the processIMC method for modloading
         bus.addListener(this::processIMC);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC, "inception-server.toml");
