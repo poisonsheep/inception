@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "inception:sedative",
+    "croptopia:beer",
+    "croptopia:wine",
+    "croptopia:mead",
+    "croptopia:rum",
+    "ends_delight:chorus_fruit_wine",
+    "farmersdelight:apple_cider",
+    "kitchenkarrot:acorn_wine",
+    "kitchenkarrot:mead",
+    "kitchenkarrot:rum",
+    "kitchenkarrot:cocktail",
+    "snowyspirit:eggnog"
+  ]
+}
