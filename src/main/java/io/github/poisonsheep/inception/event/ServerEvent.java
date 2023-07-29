@@ -2,6 +2,7 @@ package io.github.poisonsheep.inception.event;
 
 import io.github.poisonsheep.inception.Inception;
 import io.github.poisonsheep.inception.config.ServerConfig;
+import io.github.poisonsheep.inception.entity.EntitySleepingPlayer;
 import io.github.poisonsheep.inception.potion.MobEffectRegistry;
 import io.github.poisonsheep.inception.tag.ModTags;
 import net.minecraft.core.Registry;
@@ -38,6 +39,7 @@ public class ServerEvent {
                     dream.execute();
                 }
             },1000);
+            player.level.addFreshEntity(EntitySleepingPlayer.createWhenSleeping(player));
         }
     }
     //死后坠落迷失域

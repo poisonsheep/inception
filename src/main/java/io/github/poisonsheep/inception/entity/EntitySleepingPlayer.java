@@ -1,5 +1,6 @@
 package io.github.poisonsheep.inception.entity;
 
+import io.github.poisonsheep.inception.util.PlayerUtils;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -10,6 +11,7 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
@@ -29,6 +31,12 @@ public class EntitySleepingPlayer extends LivingEntity {
 
     public EntitySleepingPlayer(Level world) {
         this(EntityRegistry.SLEEPING_PLAYER.get(), world);
+    }
+
+    public static EntitySleepingPlayer createWhenSleeping(Player player) {
+        EntitySleepingPlayer sleepingPlayer = new EntitySleepingPlayer(player.level);
+        sleepingPlayer.setEntityModel(PlayerUtils.getModel(player));
+        return sleepingPlayer;
     }
 
 
@@ -63,7 +71,6 @@ public class EntitySleepingPlayer extends LivingEntity {
         return entityData.get(MODEL);
     }
 
-
     public Optional<UUID> getEntityUUID() {
         return entityData.get(ID);
     }
@@ -72,7 +79,6 @@ public class EntitySleepingPlayer extends LivingEntity {
     protected void defineSynchedData() {
 
     }
-
 
     @Override
     public Iterable<ItemStack> getArmorSlots() {
