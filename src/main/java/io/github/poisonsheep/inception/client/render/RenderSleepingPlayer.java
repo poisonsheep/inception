@@ -30,7 +30,7 @@ public class RenderSleepingPlayer extends EntityRenderer<EntitySleepingPlayer> {
     @Override
     public void render(@NotNull EntitySleepingPlayer pEntity, float pEntityYaw, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight) {
         super.render(pEntity, pEntityYaw, pPartialTick, pPoseStack, pBuffer, pPackedLight);
-        AbstractClientPlayer abstractClientPlayerEntity = new DummyPlayer((ClientLevel) pEntity.level, new GameProfile(pEntity.getEntityUUID().orElse(new UUID(0L, 0L)), pEntity.getEntityName()), null, pEntity.getEntityModel());
+        AbstractClientPlayer abstractClientPlayerEntity = new DummyPlayer((ClientLevel) pEntity.level, new GameProfile(pEntity.getEntityUUID().orElse(new UUID(0L, 0L)), pEntity.getEntityName()), pEntity.getEquipment(), pEntity.getEntityModel());
         MC.getEntityRenderDispatcher().getRenderer(abstractClientPlayerEntity).render(abstractClientPlayerEntity, 0F, 1F, pPoseStack, pBuffer, pPackedLight);
         pPoseStack.popPose();
     }
