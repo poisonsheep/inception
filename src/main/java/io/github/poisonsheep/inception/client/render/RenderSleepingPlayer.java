@@ -16,11 +16,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.UUID;
 
 public class RenderSleepingPlayer extends EntityRenderer<EntitySleepingPlayer> {
-
+    private static final Minecraft MC = Minecraft.getInstance();
     public RenderSleepingPlayer(EntityRendererProvider.Context render) {
         super(render);
     }
-    private static final Minecraft MC = Minecraft.getInstance();
+
 
     @Override
     public ResourceLocation getTextureLocation(EntitySleepingPlayer pEntity) {
