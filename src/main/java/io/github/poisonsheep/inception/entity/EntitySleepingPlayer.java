@@ -1,5 +1,7 @@
 package io.github.poisonsheep.inception.entity;
 
+import io.github.poisonsheep.inception.util.PlayerUtils;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -10,6 +12,7 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
@@ -22,6 +25,7 @@ public class EntitySleepingPlayer extends LivingEntity {
     private static final EntityDataAccessor<String> NAME = SynchedEntityData.defineId(EntitySleepingPlayer.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<Byte> MODEL = SynchedEntityData.defineId(EntitySleepingPlayer.class, EntityDataSerializers.BYTE);
 
+    private static final EntityDataAccessor<NonNullList<ItemStack>> EQUIPMENT = SynchedEntityData.defineId(EntitySleepingPlayer.class, DataSerializerItemList.ITEM_LIST);
 
     public EntitySleepingPlayer(EntityType type, Level world) {
         super(type, world);
@@ -29,6 +33,13 @@ public class EntitySleepingPlayer extends LivingEntity {
 
     public EntitySleepingPlayer(Level world) {
         this(EntityRegistry.SLEEPING_PLAYER.get(), world);
+    }
+
+    public static EntitySleepingPlayer createWhenSleeping(Player player) {
+        EntitySleepingPlayer sleepingPlayer = new EntitySleepingPlayer(player.level);
+        sleepingPlayer.setEquipment(NonNullList.withSize(EquipmentSlot.values().length, ItemStack.EMPTY));
+        sleepingPlayer.setEntityModel(PlayerUtils.getModel(player));
+        return sleepingPlayer;
     }
 
 
@@ -63,16 +74,21 @@ public class EntitySleepingPlayer extends LivingEntity {
         return entityData.get(MODEL);
     }
 
-
     public Optional<UUID> getEntityUUID() {
         return entityData.get(ID);
+    }
+    public void setEquipment(NonNullList<ItemStack> equipment) {
+        entityData.set(EQUIPMENT, equipment);
+    }
+
+    public NonNullList<ItemStack> getEquipment() {
+        return entityData.get(EQUIPMENT);
     }
 
     @Override
     protected void defineSynchedData() {
 
     }
-
 
     @Override
     public Iterable<ItemStack> getArmorSlots() {
