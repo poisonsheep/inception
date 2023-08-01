@@ -54,6 +54,11 @@ minecraft {
             arg '-mixin.config=mixins.inception.json'
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+
+
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+
             property 'forge.enabledGameTestNamespaces', 'inception'
 
             mods {
@@ -70,6 +75,9 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
 
             property 'forge.logging.console.level', 'debug'
+
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             property 'forge.enabledGameTestNamespaces', 'inception'
@@ -134,6 +142,10 @@ repositories {
     // flatDir {
     //     dir 'libs'
     // }
+    maven {
+        name "KosmX's maven"
+        url 'https://maven.kosmx.dev/'
+    }
 }
 
 
@@ -143,6 +155,8 @@ dependencies {
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.18.2-40.2.0'
+
+    implementation fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:${project.player_anim}")
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
